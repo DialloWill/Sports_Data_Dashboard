@@ -1,0 +1,255 @@
+@font-face {
+    font-family: 'Epoch';
+    src: url('/static/fonts/Epoch-BF6881cf42e6637.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Kualine';
+    src: url('/static/fonts/Kualine.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Kualine', monospace;
+    background-color: #0a0a0f;
+    color: #f0f0f5;
+    min-height: 100vh;
+    padding: 0 0 60px;
+}
+
+.wr-header {
+    text-align: center;
+    padding: 40px 0 10px;
+    font-family: 'Epoch', serif;
+    font-size: 52px;
+    letter-spacing: 8px;
+    color: #f0f0f5;
+    text-transform: uppercase;
+}
+
+.wr-accent-line {
+    width: 80px;
+    height: 3px;
+    background: #c8f135;
+    margin: 0 auto 16px;
+}
+
+.wr-lottie {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 12px;
+}
+
+.tab-lottie {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0 4px;
+}
+
+.lottie-header {
+    width: 160px;
+    height: 160px;
+}
+
+.lottie-tab {
+    width: 140px;
+    height: 140px;
+}
+
+.wr-tabs {
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid #1e1e2e;
+    margin-bottom: 0;
+}
+
+.wr-tab {
+    font-family: 'Epoch', serif;
+    font-size: 22px;
+    letter-spacing: 4px;
+    padding: 14px 40px;
+    background: none;
+    border: none;
+    color: #5a5a72;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.2s ease;
+    text-transform: uppercase;
+}
+
+.wr-tab::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: #c8f135;
+    transform: scaleX(0);
+    transition: transform 0.25s ease;
+}
+
+.wr-tab.active {
+    color: #c8f135;
+}
+
+.wr-tab.active::after {
+    transform: scaleX(1);
+}
+
+.wr-tab:hover:not(.active) {
+    color: #f0f0f5;
+}
+
+.tab-content {
+    display: none;
+    padding: 0 32px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.wr-season {
+    text-align: center;
+    color: #5a5a72;
+    font-family: 'Kualine', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 18px 0 8px;
+}
+
+.wr-conf {
+    font-family: 'Epoch', serif;
+    font-size: 13px;
+    letter-spacing: 5px;
+    color: #5a5a72;
+    text-transform: uppercase;
+    margin: 28px 0 10px;
+    padding-left: 14px;
+    border-left: 3px solid #c8f135;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 36px;
+}
+
+thead th {
+    font-family: 'Kualine', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #5a5a72;
+    font-weight: normal;
+    padding: 8px 14px;
+    border-bottom: 1px solid #1e1e2e;
+    text-align: left;
+}
+
+tbody td {
+    font-family: 'Kualine', monospace;
+    font-size: 13px;
+    color: #a0a0b8;
+    padding: 11px 14px;
+    border-bottom: 1px solid #0f0f18;
+}
+
+tbody tr:hover td {
+    background: #13131a;
+}
+
+tbody tr:hover td:first-child {
+    border-left: 3px solid #c8f135;
+    padding-left: 11px;
+}
+
+.rank {
+    color: #c8f135;
+    font-size: 14px;
+}
+
+.team-name {
+    color: #f0f0f5;
+    font-size: 14px;
+}
+
+.no-data {
+    color: #5a5a72;
+    padding: 20px 0;
+}
+
+.soccer-groups {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 32px;
+    margin-top: 12px;
+}
+
+.soccer-group {
+    background: #0d0d14;
+    border: 1px solid #1e1e2e;
+    border-radius: 2px;
+    padding: 0 0 12px;
+}
+
+.soccer-group .wr-conf {
+    margin: 0;
+    padding: 14px 16px;
+    border-left: none;
+    border-bottom: 1px solid #1e1e2e;
+    font-size: 12px;
+}
+
+.soccer-group table {
+    margin-bottom: 0;
+    padding: 0 12px;
+}
+
+.soccer-group thead th,
+.soccer-group tbody td {
+    padding: 8px 10px;
+    font-size: 11px;
+}
+
+.wr-coming-soon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 0;
+    gap: 16px;
+}
+
+.cs-title {
+    font-family: 'Epoch', serif;
+    font-size: 36px;
+    letter-spacing: 8px;
+    color: #2a2a3a;
+    text-transform: uppercase;
+}
+
+.cs-sub {
+    font-family: 'Kualine', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: #3a3a52;
+    text-transform: uppercase;
+}
+
+.cs-bar {
+    width: 40px;
+    height: 2px;
+    background: #c8f135;
+    opacity: 0.4;
+}

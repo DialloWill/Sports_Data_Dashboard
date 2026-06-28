@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Stats Dashboard</title>
+    <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.9.14/dist/dotlottie-wc.js" type="module"></script>
+    <link rel="stylesheet" href="/static/css/app.css">
+</head>
+<body>
+
+    <div class="wr-header">Sports Stats Dashboard</div>
+    <div class="wr-accent-line"></div>
+
+    <div class="wr-lottie">
+        <dotlottie-wc
+            src="https://lottie.host/c019d5ce-3f1d-4a90-9f7a-c8dc0b2f3c39/UUtNQJWM8H.lottie"
+            class="lottie-header"
+            autoplay
+            loop>
+        </dotlottie-wc>
+    </div>
+
+    <div class="wr-tabs">
+        <button class="wr-tab active" onclick="showTab('nba', this)">NBA</button>
+        <button class="wr-tab" onclick="showTab('nfl', this)">NFL</button>
+        <button class="wr-tab" onclick="showTab('mlb', this)">MLB</button>
+        <button class="wr-tab" onclick="showTab('soccer', this)">Soccer</button>
+        <button class="wr-tab" onclick="showTab('volleyball', this)">Volleyball</button>
+        <button class="wr-tab" onclick="showTab('boxing', this)">Boxing</button>
+    </div>
+
+    <!-- NBA -->
+    <div id="nba" class="tab-content active">
+        <div class="wr-season">2024-25 Season — Final Standings</div>
+        {% for conference in ["East", "West"] %}
+            <div class="wr-conf">{{ conference }}ern Conference</div>
+            {% if nba_standings[conference] %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Team</th>
+                            <th>W</th>
+                            <th>L</th>
+                            <th>Win %</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for team in nba_standings[conference] %}
+                        <tr>
+                            <td class="rank">{{ loop.index }}</td>
+                            <td class="team-name">{{ team['team'] }}</td>
+                            <td>{{ team['wins'] }}</td>
+                            <td>{{ team['losses'] }}</td>
+                            <td>{{ team['win_pct'] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="no-data">No data available.</p>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <!-- NFL -->
+    <div id="nfl" class="tab-content">
+        <div class="tab-lottie">
+            <dotlottie-wc
+                src="https://lottie.host/678b75b1-43a9-4bb6-8da1-20fface655be/hnzoXsKKeR.lottie"
+                class="lottie-tab"
+                autoplay
+                loop>
+            </dotlottie-wc>
+        </div>
+        <div class="wr-season">2024 Season — Final Standings</div>
+        {% for conference in ["AFC", "NFC"] %}
+            <div class="wr-conf">{{ conference }}</div>
+            {% if nfl_data[conference] %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Team</th>
+                            <th>W</th>
+                            <th>L</th>
+                            <th>Win %</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for team in nfl_data[conference] %}
+                        <tr>
+                            <td class="rank">{{ loop.index }}</td>
+                            <td class="team-name">{{ team['team'] }}</td>
+                            <td>{{ team['wins'] }}</td>
+                            <td>{{ team['losses'] }}</td>
+                            <td>{{ team['win_pct'] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="no-data">No data available.</p>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <!-- MLB -->
+    <div id="mlb" class="tab-content">
+        <div class="wr-season">2025 Season — Live</div>
+        {% for league in ["AL", "NL"] %}
+            <div class="wr-conf">{{ league }}</div>
+            {% if mlb_data[league] %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Team</th>
+                            <th>W</th>
+                            <th>L</th>
+                            <th>Win %</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for team in mlb_data[league] %}
+                        <tr>
+                            <td class="rank">{{ loop.index }}</td>
+                            <td class="team-name">{{ team['team'] }}</td>
+                            <td>{{ team['wins'] }}</td>
+                            <td>{{ team['losses'] }}</td>
+                            <td>{{ team['win_pct'] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="no-data">No data available.</p>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <!-- SOCCER -->
+    <div id="soccer" class="tab-content">
+        <div class="wr-season">FIFA World Cup 2026 — Live</div>
+        {% if soccer_data.error is defined %}
+            <p class="no-data">{{ soccer_data.error }}</p>
+        {% else %}
+            <div class="soccer-groups">
+                {% for group_name, teams in soccer_data.items() %}
+                <div class="soccer-group">
+                    <div class="wr-conf">{{ group_name }}</div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Team</th>
+                                <th>P</th>
+                                <th>W</th>
+                                <th>D</th>
+                                <th>L</th>
+                                <th>GF</th>
+                                <th>GA</th>
+                                <th>GD</th>
+                                <th>PTS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for team in teams %}
+                            <tr>
+                                <td class="rank">{{ loop.index }}</td>
+                                <td class="team-name">{{ team['team'] }}</td>
+                                <td>{{ team['p'] }}</td>
+                                <td>{{ team['w'] }}</td>
+                                <td>{{ team['d'] }}</td>
+                                <td>{{ team['l'] }}</td>
+                                <td>{{ team['gf'] }}</td>
+                                <td>{{ team['ga'] }}</td>
+                                <td>{{ team['gd'] }}</td>
+                                <td>{{ team['pts'] }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- VOLLEYBALL -->
+    <div id="volleyball" class="tab-content">
+        <div class="wr-coming-soon">
+            <div class="cs-bar"></div>
+            <div class="cs-title">Coming Soon</div>
+            <div class="cs-sub">Volleyball standings — in progress</div>
+            <div class="cs-bar"></div>
+        </div>
+    </div>
+
+    <!-- BOXING -->
+<div id="boxing" class="tab-content">
+    <div class="wr-season">Live &amp; Upcoming Fights</div>
+
+    {% if boxing_fights %}
+    <div class="wr-conf">Fight Card</div>
+    <table>
+        <thead>
+            <tr>
+                <th>Event</th>
+                <th>Fight</th>
+                <th>Division</th>
+                <th>Card</th>
+                <th>Status</th>
+                <th>Winner</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for fight in boxing_fights %}
+            <tr>
+                <td class="team-name">{{ fight['event'] }}</td>
+                <td class="team-name">{{ fight['fighter_1'] }} vs {{ fight['fighter_2'] }}</td>
+                <td>{{ fight['division'] }}</td>
+                <td>{{ fight['card'] }}</td>
+                <td>{{ fight['status'] }}</td>
+                <td class="rank">{{ fight['winner'] if fight['winner'] else '—' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p class="no-data">No fight data available.</p>
+    {% endif %}
+
+    {% if boxing_rankings %}
+        {% for division, fighters in boxing_rankings.items() %}
+        <div class="wr-conf">{{ division }}</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Fighter</th>
+                    <th>Record</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for fighter in fighters %}
+                <tr>
+                    <td class="rank">{{ fighter['rank'] }}</td>
+                    <td class="team-name">{{ fighter['fighter'] }}</td>
+                    <td>{{ fighter['record'] }}</td>
+                    <td>{{ fighter['status'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endfor %}
+    {% else %}
+        <p class="no-data">No rankings data available.</p>
+    {% endif %}
+</div>
+
+    <script>
+        function showTab(tabName, btn) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.wr-tab').forEach(el => el.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            btn.classList.add('active');
+        }
+    </script>
+
+</body>
+</html>
